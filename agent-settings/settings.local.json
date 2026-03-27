@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config:*)",
+      "Bash(source venv/Scripts/activate)",
+      "Bash(echo \"Activated: $VIRTUAL_ENV\")",
+      "Bash(source .venv/Scripts/activate)",
+      "Bash(uv pip:*)"
+    ]
+  }
+}
