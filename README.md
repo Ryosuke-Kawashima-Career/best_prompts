@@ -4,7 +4,7 @@ A personal collection of prompts gathered through practice. These prompts are or
 
 ## Structure
 
-```
+```text
 best_prompts/
 ├── agent-settings/          # Prompts and configs for AI agent behavior
 │   ├── commands-workflows/  # Slash commands and workflow prompts
