@@ -9,9 +9,11 @@
 ## 1. Chain of Thought
 
 ### Problem Summary
+
 Build a web-based OTA-style travel app where users plan trips, book services (flights, hotels, restaurants, transit), manage a cart, view itineraries, and adjust schedules on the fly.
 
 ### Key Design Decisions
+
 1. **Next.js** for frontend — SSR improves search result SEO; TypeScript is required; familiar OTA-style UX patterns are well-supported.
 2. **Spring Boot** for backend — standard Java framework; REST API; clean layering (Controller → Service → Repository).
 3. **Mock External APIs** — real booking APIs (Amadeus, Google Hotels) are out of scope for v1.0; use stub/mock services to satisfy acceptance criteria.
@@ -170,6 +172,7 @@ erDiagram
 ## 7. Implementation Phases
 
 ### Phase 0 — Project Scaffolding
+
 **Goal**: Runnable skeleton with CI-ready structure.
 
 - [x] Initialize Next.js 14 app in `frontend/` with TypeScript + Tailwind
@@ -184,9 +187,11 @@ erDiagram
 ---
 
 ### Phase 1 — Search (F-01 – F-04)
+
 **Goal**: User searches and sees candidates for all 4 service types.
 
 **Backend**
+
 - [x] Define `SearchRequest` DTO (origin, destination, departureDate, returnDate, serviceTypes)
 - [x] Implement `FlightAdapter`, `HotelAdapter`, `RestaurantAdapter`, `TransitAdapter` returning mock `CandidateDTO` lists
 - [x] Implement `SearchService` — fan-out to adapters, aggregate results
@@ -194,6 +199,7 @@ erDiagram
 - [x] Unit tests: `SearchServiceTest` with mocked adapters
 
 **Frontend**
+
 - [x] Build `SearchForm` component (origin, destination, date pickers, service type checkboxes)
 - [x] Build `CandidateCard` component (price, summary, "Add to Cart" / "Book Now" buttons)
 - [x] Search results page: call `/api/search`, render cards grouped by service type
@@ -204,9 +210,11 @@ erDiagram
 ---
 
 ### Phase 2 — Itinerary View (F-09 – F-11)
+
 **Goal**: User sees confirmed reservations as a chronological schedule with procedures.
 
 **Backend**
+
 - [x] Implement `Reservation` JPA entity + `ReservationRepository`
 - [x] Implement `ItineraryService` — fetch reservations, sort chronologically, attach procedure notes
 - [x] Procedure notes: static rules per ServiceType (e.g., "Check in 2 h before flight", "Confirm hotel arrival time")
@@ -214,6 +222,7 @@ erDiagram
 - [x] Unit tests: `ItineraryServiceTest`
 
 **Frontend**
+
 - [x] `ItineraryTimeline` component — vertical timeline grouped by date
 - [x] Each entry shows: time, service type icon, summary, price, procedure checklist
 - [x] Itinerary page: fetch and render timeline
@@ -222,15 +231,18 @@ erDiagram
 **Exit criteria**: Confirmed bookings appear in chronological order with pre-trip and in-trip checklists visible.
 
 #### Phase 2 - Modification
+
 - [x] Change the color theme so that the texts are visible on the background. Currently, the letters are white-like color and unvisible.
 - [x] Raise an error to notify when the user inputs the return date prior to its departure date. Show the message to prompt the user to input the dates logically correctly.
 
 ---
 
 ### Phase 3 — Schedule Adjustment (F-12 – F-15)
+
 **Goal**: User can modify or cancel a reservation; itinerary updates automatically.
 
 **Backend**
+
 - [ ] Implement `PATCH /api/bookings/{id}` — update fields, call mock adapter modify, update DB
 - [ ] Implement `DELETE /api/bookings/{id}` — cancel, call mock adapter cancel, set status = CANCELLED
 - [ ] Implement `GET /api/search/alternatives` — return new mock candidates given changed criteria
@@ -238,6 +250,7 @@ erDiagram
 - [ ] Unit tests: `BookingModificationServiceTest`
 
 **Frontend**
+
 - [ ] "Edit" and "Cancel" buttons on each itinerary entry
 - [ ] Edit modal: date/time picker + "Find Alternatives" option
 - [ ] Alternatives panel: shows new candidates from `/api/search/alternatives`
@@ -249,9 +262,11 @@ erDiagram
 ---
 
 ### Phase 4 — Cart (F-05 – F-08)
+
 **Goal**: User can add, view, remove, and confirm reservations.
 
 **Backend**
+
 - [ ] Implement `CartItem` JPA entity + `CartRepository`
 - [ ] Implement `CartService` (add, list, remove)
 - [ ] Implement `POST /api/cart`, `GET /api/cart/{sessionId}`, `DELETE /api/cart/{itemId}`
@@ -260,6 +275,7 @@ erDiagram
 - [ ] Unit tests: `CartServiceTest`, `BookingServiceTest`
 
 **Frontend**
+
 - [ ] Zustand cart store (add, remove, clear)
 - [ ] `CartItem` component
 - [ ] Cart page: list items, total price, "Confirm All" button
@@ -271,6 +287,7 @@ erDiagram
 ---
 
 ### Phase 5 — Polish & Acceptance Testing
+
 **Goal**: UI matches OTA conventions; all acceptance criteria pass.
 
 - [ ] Apply OTA-style design: header with logo + nav, search bar prominent, card-based results
