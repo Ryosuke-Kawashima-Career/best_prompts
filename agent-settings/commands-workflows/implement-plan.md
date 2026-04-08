@@ -1,3 +1,8 @@
+---
+name: implement-plan
+description: Implement the plan and write the walkthrough document.
+---
+
 # Implement Plan
 
 ## Overview
