@@ -1,6 +1,9 @@
 ---
+name: implement-plan
 description: Execute an implementation plan, write code, and document the process.
 ---
+
+# Implement Plan
 
 # Workflow: Implement Plan
 

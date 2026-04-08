@@ -1,4 +1,5 @@
 ---
+name: get-solution
 description: Come up with a solution to the given competitive programming problem.
 ---
 

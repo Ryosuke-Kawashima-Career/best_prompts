@@ -1,4 +1,5 @@
 ---
+name: find-flaws
 description: Detect the logic flaws of the user's code and encourage the person to learn coding and problem-solving.
 ---
 
