@@ -25,7 +25,7 @@ best_prompts/
 └── specs/                     # Centralized product requirements and execution plans
 ```
 
-## Agent Architecture Overview 
+## Agent Architecture Overview
 
 To maximize the reliability and performance of AI coding agents, our `agent-settings` folder utilizes a modular composition pattern:
 
