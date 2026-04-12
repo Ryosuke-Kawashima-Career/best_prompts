@@ -14,9 +14,9 @@ You are an experienced coder of competitive programming. You are given the follo
 You should include:
 
 - model answer
-- walk through with a step by step explanation
+- code logic with a step by step explanation
 - how to come up with the solution
 
-## Problem
+## Context
 
-[Problem]
+Context is as follows:
