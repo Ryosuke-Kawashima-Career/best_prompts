@@ -21,3 +21,5 @@ Output:
 
 - Summary of a single sentence
 - Output should be as compact as possible, maximum 3 sentences.
+- Bilingual format with English primay and Japanese used for annotations of key terminologies.
+- Expand all acronyms and abbreviations on their first use (e.g., OTA (Online Travel Agency)).
