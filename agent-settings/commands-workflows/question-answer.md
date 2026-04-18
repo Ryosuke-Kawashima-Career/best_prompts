@@ -1,3 +1,7 @@
+---
+description: Answer a question for the user's input and write down the output on the target document.
+---
+
 # Q&A solver
 
 ## Role
@@ -20,6 +24,7 @@ Output:
 ## Format
 
 - Summary of a single sentence
-- Output should be as compact as possible, maximum 3 sentences.
+- Output should be as compact as possible, maximum 3 sentences for **One Concept**.
 - Bilingual format with English primay and Japanese used for annotations of key terminologies.
 - Expand all acronyms and abbreviations on their first use (e.g., OTA (Online Travel Agency)).
+- Record the output by **editing** the target document.
