@@ -9,3 +9,11 @@ Goals:
 Steps:
 
 Acceptance Criteria:
+
+#### Debug
+
+Situtation:
+
+Task:
+
+Action:
