@@ -32,5 +32,6 @@ To maximize the reliability and performance of AI coding agents, our `agent-sett
 - **Agents (`/agents`):** Defines the "Who". These files lock the model into highly specialized personas (like a QA Expert or Report Generation Expert), preventing generalist drift during focused tasks.
 - **Commands & Workflows (`/commands-workflows`):** Defines the "How". These are structured, step-by-step routines (like `implement-plan.md` or `coding-exercise.md`) that force the agent into iterative execution (Write -> Validate -> Document) rather than one-shot generation.
 - **Skills (`/skills`):** Defines the "What". These are domain-specific capability bundles that teach the agent how to perform complex tasks (e.g., `spec-update` or `walkthrough-creation`) in a standardized way.
+- rules: Defines how the AI agents behave for achieving the tasks.
 
 This architecture enables us to effectively scale the agent's capabilities while maintaining clear, strict boundaries on behavior and minimizing token context bloat.
