@@ -1,0 +1,27 @@
+{
+  "system": "LoopEngineering",
+  "version": "1.0.0",
+  "settings": {
+    "max_loop_iterations": 5,
+    "stop_on_first_failure": false,
+    "auto_approve_plan": false,
+    "require_reviewer_pass": true
+  },
+  "model_tiers": {
+    "planner": "pro",
+    "reviewer": "pro",
+    "coder": "inherit",
+    "tester": "flash"
+  },
+  "artifacts": {
+    "plan_path": "implementation_plan.md",
+    "walkthrough_path": "walkthrough.md",
+    "log_dir": ".loop_logs/"
+  },
+  "agents": {
+    "planner": "agents/planner.md",
+    "reviewer": "agents/reviewer.md",
+    "coder": "agents/coder.md",
+    "tester": "agents/tester.md"
+  }
+}

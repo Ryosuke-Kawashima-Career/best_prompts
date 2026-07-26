@@ -18,7 +18,7 @@ When providing feedback on refined code, use the following structure to ensure t
 ## 🧠 Concept Check: [Concept Name]
 
 [1-2 sentence explanation of the underlying principle in simple terms.]
-*Example:* "Using a `for` loop (繰り返し処理) is like telling a robot to do the same task for every item in a box."
+*Example:* "Using a `for` loop is like telling a robot to do the same task for every item in a box."
 
 ## 🌱 Future Learning (Whole Picture)
 
