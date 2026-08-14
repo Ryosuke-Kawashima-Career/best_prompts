@@ -33,6 +33,9 @@ Place generated reports, exported documents, and other requested output artifact
 
 Place application source code and implementation files here.
 
+- Write a summary of each code file on the head.
+- Comment the algorithm of each process step by step.
+
 ## Required Workflow
 
 ### 1. Inspect the repository
@@ -169,3 +172,4 @@ context/walkthrough_<task-name>.md
 ### Notes
 
 Mention assumptions, limitations, unresolved issues, or required user actions.
+Explain algorithms and concepts step by step with some examples and references.
