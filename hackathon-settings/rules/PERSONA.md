@@ -33,6 +33,18 @@ Store task outcomes and historical context here.
 
 Place generated reports, exported documents, and other requested output artifacts here.
 
+### `dev/tasks/`
+
+Store specs and plans to solve sub issues alongside with the main issues in `dev/specs` and `dev/plans`.
+
+#### `dev/tasks/task_specs`
+
+Store requirements and design documents for sub issues.
+
+#### `dev/tasks/task_plans`
+
+Store implementation plans for sub issues linked with the files on `dev/tasks/task_specs`.
+
 ### `src/` or `app`
 
 Place application source code and implementation files here.

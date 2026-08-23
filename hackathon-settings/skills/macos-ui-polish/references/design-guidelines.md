@@ -1,17 +1,18 @@
-# macOS Tahoe & Dia UI Design Guidelines
+# macOS Tahoe & Dia UI Design Guidelines (Light Theme Primary)
 
-Detailed design rules for engineering web and Tauri desktop user interfaces.
+Detailed design rules and material specifications for engineering light-mode macOS user interfaces across web and desktop applications.
 
 ---
 
-## 1. Material Layers & Acrylic Surfaces
+## 1. Material Layers & Acrylic Surfaces (Light Mode)
 
 | Element | Background | Blur Filter | Border / Highlight |
 | :--- | :--- | :--- | :--- |
-| **Canvas Background** | `#0f1117` or `#161821` | None (with subtle dot grid) | None |
-| **Floating Dock / Toolbar** | `rgba(22, 25, 35, 0.72)` | `blur(28px) saturate(190%)` | `1px solid rgba(255,255,255,0.08)` + inner glow |
-| **Sidebars & Drawers** | `rgba(18, 20, 28, 0.6)` | `blur(24px) saturate(180%)` | Right border `rgba(255,255,255,0.06)` |
-| **Modal Sheets** | `rgba(30, 34, 48, 0.75)` | `blur(36px) saturate(200%)` | `1px solid rgba(255,255,255,0.16)` |
+| **Canvas Background** | `#f5f5f7` or `#ffffff` | None (with 24px subtle dot grid) | None |
+| **Floating Dock / Toolbar** | `rgba(255, 255, 255, 0.78)` | `blur(28px) saturate(180%)` | `1px solid rgba(0, 0, 0, 0.08)` + inner white glow |
+| **Sidebars & Panels** | `rgba(246, 246, 248, 0.82)` | `blur(24px) saturate(180%)` | Right border `rgba(0, 0, 0, 0.06)` |
+| **Modal Sheets** | `rgba(255, 255, 255, 0.88)` | `blur(36px) saturate(190%)` | `1px solid rgba(0, 0, 0, 0.12)` + modal shadow |
+| **Card Containers** | `rgba(255, 255, 255, 0.9)` | `blur(16px)` | `1px solid rgba(0, 0, 0, 0.06)` |
 
 ---
 
@@ -19,14 +20,15 @@ Detailed design rules for engineering web and Tauri desktop user interfaces.
 
 ### Floating Pill Toolbar (Dia Style)
 - Capsule shaped (`border-radius: 9999px`).
-- Centered at the top or bottom of the viewport with a floating offset (e.g. `top: 16px`).
-- Subtle drop shadow with ambient elevation: `0 12px 32px rgba(0, 0, 0, 0.35)`.
+- Frosted light glass background: `rgba(255, 255, 255, 0.78)` with `backdrop-filter: blur(28px) saturate(180%)`.
+- Ambient shadow: `0 12px 36px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)`.
+- Subtle top reflection inner glow: `inset 0 1px 1px 0 rgba(255, 255, 255, 0.85)`.
 
-### Segmented Controls & Icons
-- Default state: transparent background, semi-transparent text/icon (`rgba(235, 235, 245, 0.65)`).
-- Hover state: soft luminous pill background (`rgba(255, 255, 255, 0.08)`).
-- Active / Selected state: macOS Accent Blue (`#0a84ff`) or high-contrast solid white pill with dark icon.
-- Press state: smooth micro-scale `scale(0.96)`.
+### Segmented Controls & Buttons
+- **Default state**: Transparent background with dark neutral text (`rgba(60, 60, 67, 0.75)`).
+- **Hover state**: Soft neutral light highlight (`rgba(0, 0, 0, 0.05)`).
+- **Active / Selected state**: macOS Accent Blue (`#007aff`) with white icon/text, or crisp white capsule button with dark icon and drop shadow (`0 1px 2px rgba(0, 0, 0, 0.06)`).
+- **Press state**: Tactile micro-scale `scale(0.96)`.
 
 ---
 
@@ -36,8 +38,16 @@ Detailed design rules for engineering web and Tauri desktop user interfaces.
   - Minimize: `#ffbd2e`
   - Zoom: `#27c93f`
   - Size: 12px circle with 8px spacing.
-- **Canvas Dot Grid**:
+- **Canvas Dot Grid (Light Mode)**:
   ```css
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
   background-size: 24px 24px;
   ```
+
+---
+
+## 4. Typography & Contrast in Light Theme
+- Primary text: `#1d1d1f` (SF Pro, High readability).
+- Secondary text: `rgba(60, 60, 67, 0.75)`.
+- Tertiary text: `rgba(60, 60, 67, 0.45)`.
+- Focus ring: `#007aff` with `box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.25)`.
