@@ -56,3 +56,37 @@ dev/tasks/
     ├── implementation_plan_auth.md ─┴─┘
     └── implementation_plan_payment.md
 ```
+
+---
+
+## 4. Versioning & Metadata Schema
+
+Every document in `dev/specs/` and `dev/plans/` must include frontmatter version metadata:
+
+```markdown
+<!-- Specification Frontmatter Example -->
+---
+document_type: "specification"
+version: "1.2.0"
+status: "Approved"
+last_updated: "2026-08-26"
+author: "AI Agent & User"
+---
+
+<!-- Implementation Plan Frontmatter Example -->
+---
+document_type: "implementation_plan"
+version: "1.2.0"
+target_spec_version: "1.2.0"
+status: "In Progress"
+last_updated: "2026-08-26"
+author: "AI Agent & User"
+---
+```
+
+### Version Drift Resolution Rule
+If `implementation_plan.target_spec_version` != `spec.version`:
+1. Audit the specification's **Revision History** to identify what changed in the new spec version.
+2. Update the implementation plan tasks, milestones, or test commands to satisfy the updated requirements.
+3. Bump the plan's `version` and update `target_spec_version` to match the spec.
+

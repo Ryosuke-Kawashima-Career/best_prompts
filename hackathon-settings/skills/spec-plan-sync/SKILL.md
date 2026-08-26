@@ -89,15 +89,79 @@ Apply targeted updates to restore complete alignment:
 
 ---
 
+## 🏷️ Versioning System in Spec-Driven Development (SDD)
+
+To ensure full historical traceability and prevent architectural drift, every specification and implementation plan must adhere to a standardized versioning function.
+
+```
+  ┌───────────────────────────────┐                  ┌────────────────────────────────────┐
+  │  Specification (dev/specs/)   │                  │   Implementation Plan (dev/plans/) │
+  │  version: "1.2.0"             │ ─── Verified ─── │   version: "1.2.0"                 │
+  │  status: "Approved"           │     Alignment    │   target_spec_version: "1.2.0"     │
+  └───────────────────────────────┘                  └────────────────────────────────────┘
+```
+
+### 1. Semantic Versioning for Specs & Plans (`MAJOR.MINOR.PATCH`)
+- **MAJOR (`v2.0.0`)**: Breaking architectural changes, core system redesigns, fundamental scope pivots, or major schema overhauls.
+- **MINOR (`v1.1.0`)**: Additive features, new user stories, additional functional requirements, or new plan milestones that preserve existing interfaces.
+- **PATCH (`v1.0.1`)**: Clarifications, edge-case refinements, minor task step reordering, typo fixes, or parameter value updates.
+
+### 2. Standard Document Metadata Headers
+Place a YAML frontmatter block at the top of every spec and plan document:
+
+**Specification Header (`dev/specs/spec_<task>.md`):**
+```yaml
+---
+document_type: "specification"
+version: "1.2.0"
+status: "Approved" # Options: Draft | Review | Approved | Superseded
+last_updated: "2026-08-26"
+author: "AI Agent & Lead Architect"
+---
+```
+
+**Implementation Plan Header (`dev/plans/implementation_plan_<task>.md`):**
+```yaml
+---
+document_type: "implementation_plan"
+version: "1.2.0"
+target_spec_version: "1.2.0" # MUST match the active specification version
+status: "In Progress" # Options: Draft | Approved | In Progress | Verified | Deprecated
+last_updated: "2026-08-26"
+author: "AI Agent & Pair Programmer"
+---
+```
+
+### 3. Cross-Pinning & Version Drift Detection
+- **Target Spec Pinning**: An implementation plan must explicitly declare the exact specification version it implements via `target_spec_version`.
+- **Version Drift Alert**: When a specification's `version` is incremented (e.g., from `1.2.0` to `1.3.0`), the implementation plan is automatically flagged as `[OUTDATED / DRIFTED]` by `verify_spec_plan_sync.py` until the plan is updated and re-pinned to `1.3.0`.
+
+### 4. Revision History / Changelog Table
+Every specification and implementation plan must maintain an inline Revision Log at the end of the document:
+
+```markdown
+## 📜 Revision History
+
+| Version | Date | Changes Summary | Author / Trigger | Status |
+|---|---|---|---|---|
+| `v1.0.0` | 2026-08-20 | Initial approved baseline specification | Project Kickoff | Approved |
+| `v1.1.0` | 2026-08-22 | Added Agora RTM data sync & AEC requirements | Hackathon Feedback | Approved |
+| `v1.2.0` | 2026-08-26 | Clarified turn-taking latency boundaries | Performance Tuning | Active |
+```
+
+---
+
 ## 📚 Supporting Resources
 
-- [Traceability Matrices & Audit Reference](references/sync-matrices.md): Standard RTM table templates, drift classification checklists, and status badges.
-- [Verification Helper Script](scripts/verify_spec_plan_sync.py): Python utility for automated spec-plan pairing and link integrity validation.
+- [Traceability Matrices & Audit Reference](references/sync-matrices.md): Standard RTM table templates, version metadata schemas, drift classification checklists, and status badges.
+- [Verification Helper Script](scripts/verify_spec_plan_sync.py): Python utility for automated spec-plan pairing, version parity checking, and link integrity validation.
 
 ---
 
 ## 🚀 Best Practices & Guardrails
 
-- **Never Code Without an Aligned Spec & Plan**: If a user request introduces a major feature change, update `dev/specs/` and `dev/plans/` first.
-- **Explicit Rationale on Scope Cuts**: If a requirement is dropped from the implementation plan due to hackathon time constraints, annotate it explicitly in the spec as `[DEFERRED]` or `[POST-MVP]` rather than deleting it silently.
+- **Never Code Without an Aligned Spec & Plan**: If a user request introduces a major feature change, increment the spec version and update the plan first.
+- **Strict Version Bumping**: Always increment the document `version` and append a new row to the Revision History table upon modifying specifications or plans.
+- **Explicit Rationale on Scope Cuts**: If a requirement is dropped from the implementation plan due to hackathon time constraints, mark it in the spec as `[DEFERRED (vX.X)]` or `[POST-MVP]` rather than deleting it silently.
 - **Keep Verification Commands Concrete**: Every task in an implementation plan must reference the exact verification command (e.g. `npm test`, `cargo check`, `pytest`) that confirms the requirement.
+

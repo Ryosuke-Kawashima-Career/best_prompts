@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 verify_spec_plan_sync.py
-Validates parity between specifications (dev/specs, dev/tasks/task_specs)
-and implementation plans (dev/plans, dev/tasks/task_plans).
+Validates parity, version synchronization, and link integrity between
+specifications (dev/specs, dev/tasks/task_specs) and implementation plans (dev/plans, dev/tasks/task_plans).
 """
 
 import os
@@ -41,6 +41,22 @@ def extract_task_name_from_plan(filename: str) -> str:
     return ""
 
 
+def extract_frontmatter(file_path: Path) -> dict:
+    metadata = {}
+    try:
+        content = file_path.read_text(encoding="utf-8")
+        match = re.match(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
+        if match:
+            raw_yaml = match.group(1)
+            for line in raw_yaml.splitlines():
+                if ":" in line and not line.strip().startswith("#"):
+                    k, v = line.split(":", 1)
+                    metadata[k.strip()] = v.strip().strip('"').strip("'")
+    except Exception:
+        pass
+    return metadata
+
+
 def check_markdown_links(file_path: Path, root_dir: Path) -> list[str]:
     broken_links = []
     try:
@@ -69,7 +85,7 @@ def audit_spec_plan_parity(root: Path) -> int:
     task_plans_dir = root / "dev" / "tasks" / "task_plans"
 
     print("=" * 60)
-    print("Spec-Plan Synchronization Audit")
+    print("Spec-Plan Synchronization & Version Audit")
     print(f"Workspace Root: {root}")
     print("=" * 60)
 
@@ -77,14 +93,14 @@ def audit_spec_plan_parity(root: Path) -> int:
     warnings = 0
 
     # 1. Check main spec & plan files
-    spec_tasks = set()
-    plan_tasks = set()
+    spec_files = {}
+    plan_files = {}
 
     if specs_dir.exists():
         for f in specs_dir.glob("*.md"):
             task_name = extract_task_name_from_spec(f.name)
             if task_name:
-                spec_tasks.add(task_name)
+                spec_files[task_name] = f
     else:
         print(f"[WARN] {specs_dir} does not exist.")
         warnings += 1
@@ -93,25 +109,39 @@ def audit_spec_plan_parity(root: Path) -> int:
         for f in plans_dir.glob("*.md"):
             task_name = extract_task_name_from_plan(f.name)
             if task_name:
-                plan_tasks.add(task_name)
+                plan_files[task_name] = f
     else:
         print(f"[WARN] {plans_dir} does not exist.")
         warnings += 1
 
-    print("\n[1] Main Spec <-> Implementation Plan Pairing:")
-    all_tasks = sorted(list(spec_tasks | plan_tasks))
+    print("\n[1] Main Spec <-> Implementation Plan Pairing & Version Alignment:")
+    all_tasks = sorted(list(set(spec_files.keys()) | set(plan_files.keys())))
     if not all_tasks:
         print("  - No task-specific specs or plans found.")
     else:
         for task in all_tasks:
-            has_spec = task in spec_tasks
-            has_plan = task in plan_tasks
-            if has_spec and has_plan:
-                print(f"  [MATCH] Task '{task}': spec_{task}.md <---> implementation_plan_{task}.md")
-            elif has_spec and not has_plan:
+            spec_path = spec_files.get(task)
+            plan_path = plan_files.get(task)
+
+            if spec_path and plan_path:
+                spec_meta = extract_frontmatter(spec_path)
+                plan_meta = extract_frontmatter(plan_path)
+
+                spec_ver = spec_meta.get("version", "N/A")
+                plan_ver = plan_meta.get("version", "N/A")
+                target_ver = plan_meta.get("target_spec_version", "N/A")
+
+                ver_str = f"(Spec v{spec_ver} <-> Plan v{plan_ver}, targets v{target_ver})"
+
+                if spec_ver != "N/A" and target_ver != "N/A" and spec_ver != target_ver:
+                    print(f"  [VERSION DRIFT] Task '{task}': Spec is v{spec_ver} but Plan targets v{target_ver}!")
+                    errors += 1
+                else:
+                    print(f"  [MATCH] Task '{task}': spec_{task}.md <---> implementation_plan_{task}.md {ver_str}")
+            elif spec_path and not plan_path:
                 print(f"  [ORPHAN SPEC] Task '{task}': has spec_{task}.md but MISSING implementation_plan_{task}.md")
                 errors += 1
-            elif not has_spec and has_plan:
+            elif not spec_path and plan_path:
                 print(f"  [ORPHAN PLAN] Task '{task}': has implementation_plan_{task}.md but MISSING spec_{task}.md")
                 errors += 1
 
