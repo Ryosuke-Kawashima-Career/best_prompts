@@ -24,28 +24,28 @@ Whenever generating learning modules, practice questions, or conceptual checks, 
 ```markdown
 ### 🧩 Question [N]: [Catchy & Descriptive Title]
 
-> **📌 Summary**: 
-> A 1-2 sentence high-level summary of the core concept and what this question evaluates.
-
 #### 📝 Problem Statement
 [Clear, contextual problem statement or code snippet with specific tasks / questions to solve]
 
 ---
 
 <details>
-<summary>💡 <b>Click to Reveal Answer & Step-by-Step Walkthrough</b></summary>
+<summary>💡 <b>Click to Reveal Answer & Walkthrough</b></summary>
 
-#### 🔍 Step-by-Step Explanation
-1. **Core Mechanism**: [Break down the underlying logic, mathematical equation, or algorithmic step]
-2. **Key Insight / Calculation**: [Walk through the solution derivation or code fix clearly]
-3. **Common Pitfall**: [Highlight typical mistakes, edge cases, or false assumptions]
+> **📌 Summary**: A brief 1-2 sentence takeaway of the core concept and solution.
 
-#### 🌍 Real-World Example / Analogy
-- **[Real-World Scenario]**: [Brief 1-2 sentence practical illustration or intuitive analogy connecting code to real-world applications]
+#### 🔍 Step-by-Step Explanation (Compact & Topic-Adapted)
+<!-- Present 2-3 numbered, concise steps tailored to the topic: -->
+1. **Step 1: [Setup / Core Mechanism / Bug Identification]**: [1 concise sentence setting up the core concept, formula, or issue]
+2. **Step 2: [Execution / Calculation / Direct Solution]**: [1-2 concise sentences showing the key derivation, fix, or reasoning]
+3. **Step 3: [Takeaway / Pitfall / Edge Case]**: [1 concise sentence on the essential insight, trade-off, or common pitfall]
 
-#### 💻 Code Solution (if applicable)
+#### 🌍 Real-World Analogy
+- **[Brief Scenario]**: 1 punchy sentence connecting concept to practical application.
+
+#### 💻 Code / Solution (if applicable)
 ```python
-# Fully documented, clean, executable solution
+# Minimal, clear, executable snippet
 ```
 
 </details>
@@ -55,14 +55,16 @@ Whenever generating learning modules, practice questions, or conceptual checks, 
 
 ## 🛠️ Step-by-Step Instructions
 
-1. **Assess the Learning Objective**:
-   - Determine whether the topic is mathematical (e.g., gradient updates, loss formulas), architectural (e.g., Dropout, CNN channels, Input layers), or data-pipeline related (e.g., scaling, leakages, metric thresholding).
+1. **Assess Objective & Keep Step-by-Step Explanations Compact**:
+   - Structure answers in a **numbered step-by-step format** (2–3 short steps max) rather than bullet points or long prose.
+   - Dynamically label each step based on the problem type (e.g., *Step 1: Formula Setup*, *Step 2: Calculation*, *Step 3: Interpretation* for quant math; or *Step 1: Root Cause*, *Step 2: Fix*, *Step 3: Edge Case* for code).
+   - **Brevity is key**: keep each step to 1–2 crisp sentences highlighting only the essential mechanism or calculation.
 
 2. **Structure Progressive Difficulty**:
    - **Level 1 (Intuition & Concept)**: High-level purpose, why naive approaches fail.
-   - **Level 2 (Mechanics & Math)**: Internal equations, parameter changes, training vs. inference behavior.
+   - **Level 2 (Mechanics & Math)**: Internal equations, parameter changes, derivations.
    - **Level 3 (Code & Debugging)**: Identifying traps in snippets or writing executable functions.
-   - **Level 4 (Real-World Decision Making)**: Trade-offs in production (e.g., Precision vs. Recall costs).
+   - **Level 4 (Real-World Decision Making)**: Practical trade-offs in quantitative finance / ML.
 
 3. **Always Encapsulate Answers in `<details>` Tags**:
    - Use HTML `<details>` and `<summary>` tags so that answers remain hidden by default until the user explicitly toggles them.
