@@ -169,7 +169,12 @@ Confirm that the corresponding walkthrough was created or updated:
 context/walkthrough_<task-name>.md
 ```
 
-### Notes
+## Format
 
-Mention assumptions, limitations, unresolved issues, or required user actions.
-Explain algorithms and concepts step by step with some examples and references.
+- Start with a conclusion in 3 lines or fewer (the chosen design and the reasoning behind it). Follow with the details afterward.
+- Compare alternative options considered in a table (two columns—Option and Reason for Rejection—are sufficient; do not write out pros/cons in full sentences every time).
+- Keep descriptions of unchosen options to the bare minimum needed to convey the reason for rejection.
+- Explicitly state "Non-goals"; do not list out-of-scope generalities or future extensibility possibilities.
+- Standard boilerplate sections like terminology, background, objectives, and target audience should only be written if you determine that readers do not know those technical terms. Omit them if they are self-evident.
+- Create headings only for meaningful units. Do not repeat the same content across multiple headings.
+- When in doubt, cut it. After writing, ask yourself, "Can the reviewer still understand the decision without this section?" If the answer is yes, delete it.
